@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dapstab/DataFood.git"
+    "url": "git+https://github.com/Dapstab/Estructuras-de-Datos.git"
   },
   "author": "Grupo 7",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Dapstab/DataFood/issues"
+    "url": "https://github.com/Dapstab/Estructuras-de-Datos/issues"
   },
-  "homepage": "https://github.com/Dapstab/DataFood#readme",
+  "homepage": "https://github.com/Dapstab/Estructuras-de-Datos#readme",
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/plugin-proposal-private-methods": "^7.13.0",
