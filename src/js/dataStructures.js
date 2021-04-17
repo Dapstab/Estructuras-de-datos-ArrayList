@@ -42,3 +42,4 @@ export class SinglyLinkedList {
 }
 
 export default new SinglyLinkedList();
+console.log("hola");
