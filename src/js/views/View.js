@@ -2,13 +2,16 @@ import icons from "url:../../img/icons.svg";
 
 export default class View {
   _data;
-  render(data) {
+  render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0)) {
       return this.renderError();
     }
 
     this._data = data;
-    const markup = this._generateMarkup();
+    const markup = this._generateMarkup(); // El this viene del controller y es cada una de las instanciaciones de view con la que se llama render.
+
+    if (!render) return markup;
+
     // Las siguientes dos lineas de código son las que realizan el rerender de los views
     this._clear();
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
@@ -35,7 +38,7 @@ export default class View {
       // console.log(newEl.isEqualNode(curEl));
 
       // Updating the text content
-      // Ahora lo que queremos hacer es ver cuales de esos HTML elements son distintos el problema es que si un elemento s es distinto al otro su padre tambien lo sera y como no queremos que se cambien los contenidos para elementos que no tengan texto usamos la popiedad nodeValue que retorna null en los casos que el innerHTML no sea text
+      // Ahora lo que queremos hacer es ver cuales de esos HTML elements son distintos el problema es que si un elemento es distinto al otro su padre tambien lo sera y como no queremos que se cambien los contenidos para elementos que no tengan texto usamos la popiedad nodeValue que retorna null en los casos que el innerHTML no sea text
       if (
         !newEl.isEqualNode(curEl) &&
         newEl.firstChild?.nodeValue.trim() !== ""

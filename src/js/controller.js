@@ -3,6 +3,7 @@ import recipeView from "./views/recipeView";
 import searchView from "./views/searchView";
 import resultsView from "./views/resultsView";
 import paginationView from "./views/paginationView";
+import bookmarksView from "./views/bookmarksView";
 
 import "core-js/stable"; // PARA INSTALARLO TUVE QUE DETENER EL PARCEL, PORQUE AL PARECER HABIAN ERRORES DE SEGURIDAD. Para polyfilling todo lo demas que no es async/await.
 import "regenerator-runtime/runtime"; // Sirve para polyfilling async/await
@@ -80,10 +81,25 @@ const controlServings = function (newServings) {
   recipeView.update(model.state.recipe); // Este metodo solo actualizara text atributes en el DOM, lo cual sera mucho mas eficiente
 };
 
+const controlAddBookmark = function () {
+  // 1) Add or remove bookmarks
+  if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
+  else model.removeBookmark(model.state.recipe.id);
+  // console.log(model.state.recipe);
+  // No queremos renderizar todo el view luego aplicamos update solamente para iluminar el boton de bookmark
+
+  // 2) Update recipe view
+  recipeView.update(model.state.recipe);
+
+  // 3) Render the bookmarks
+  bookmarksView.render(model.state.bookmarks);
+};
+
 const init = function () {
   // Publisher subscriber pattern
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);
+  recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults); // Para la paginate inicial de 1 cuando se le d al boton buscar
   paginationView._addHandlerClick(controlPagination); // Para cambiar de pagination, cuando se le de a las flechas.
 };
