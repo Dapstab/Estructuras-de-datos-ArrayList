@@ -1,4 +1,4 @@
-import recipes from "./data.js";
+import {recipes} from "./data.js";
 
 class Node {
   constructor(value) {
@@ -123,6 +123,7 @@ class SinglyLinkedList {
       }
       currentNode = currentNode.next;
     }
+    console.log("hola");
     return recipes;
   }
 
@@ -168,5 +169,7 @@ export class Stack {
 
 export const recipesLl = new SinglyLinkedList();
 recipes.forEach((rec) => recipesLl.pushBack(rec));
+
+
 
 export const bookmarks = new SinglyLinkedList();
