@@ -1,16 +1,20 @@
 import { API_URL, RES_PER_PAGE } from "./config.js";
 import { getJSON } from "./helper.js";
-import { recipesLl, bookmarks } from "./dataStructures.js";
+import {
+  recipesLl,
+  bookmarks,
+  results,
+} from "./dataStructures/singlyLinkedList.js";
 
 export const state = {
   recipe: {},
   search: {
     query: "",
-    results: [],
+    results: results,
     page: 1,
     resultsPerPage: RES_PER_PAGE,
   },
-  bookmarks: [], // ¿Implementar arrayList?
+  bookmarks: bookmarks, 
 };
 
 export const loadRecipe = async function (id) {
@@ -53,7 +57,7 @@ export const loadRecipe = async function (id) {
   }
 };
 
-export const loadSerachResults = async function (query) {
+export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
     // const data = await getJSON(`${API_URL}?search=${query}`);
@@ -87,7 +91,7 @@ export const getSearchResultPage = function (page = state.search.page) {
   const start = (page - 1) * state.search.resultsPerPage; //0;
   const end = page * state.search.resultsPerPage; // 10
 
-  return state.search.results.slice(start, end); // ¿Implementar este metodo?
+  return state.search.results.slice(start, end);
 };
 
 export const updateServings = function (newServings) {
@@ -104,8 +108,8 @@ const persistBookmarks = function () {
 
 export const addBookmark = function (recipe) {
   // 1) Add bookmark
-  // state.bookmarks.pushBack(recipe);
-  state.bookmarks.push(recipe);
+  state.bookmarks.pushBack(recipe);
+  // state.bookmarks.push(recipe);
 
   // 2) Mark current recipe as bookmark
   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
@@ -115,8 +119,30 @@ export const addBookmark = function (recipe) {
 export const removeBookmark = function (id) {
   // Delete bookmarked
   const index = state.bookmarks.findIndex((el) => el.id === id);
-  state.bookmarks.splice(index, 1);
+  // state.bookmarks.splice(index, 1);
+  state.bookmarks.remove(index);
 
   if (id === state.recipe.id) state.recipe.bookmarked = false;
   persistBookmarks();
 };
+
+const init = function () {
+  const storage = JSON.parse(localStorage.getItem("bookmarks"));
+  // console.log(storage); Deja de ser una singlyLinkedList para pasar a ser un objeto, luego necesitamos nuevamente llenar a bookmarks con una linkedlist, entonces:
+  if (storage) {
+    let count = 0;
+    let currentNode = storage.head;
+    while (count < storage.length) {
+      state.bookmarks.pushBack(currentNode.value);
+      currentNode = currentNode.next;
+      count++;
+    }
+  }
+};
+init();
+
+const clearBookmarks = function () {
+  // Function for development
+  localStorage.clear("bookmarks");
+};
+// clearBookmarks();

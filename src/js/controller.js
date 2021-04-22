@@ -26,13 +26,16 @@ const controlRecipes = async function () {
     if (!id) return;
     recipeView.renderSpiner();
 
-    // 0) Update results view to mark selected search result
+    // 1) Update results view to mark selected search result
     resultsView.update(model.getSearchResultPage());
 
-    // 1) Loading recipe form the API.
+    // 2) Updating bookmarks view
+    bookmarksView.update(model.state.bookmarks);
+
+    // 3) Loading recipe form the API. (No es necesario el async await ya que estamos trayendo la data de data.js)
     await model.loadRecipe(id);
 
-    // 2) Rendering the recipe
+    // 4) Rendering the recipe
     recipeView.render(model.state.recipe);
     // En vez de utilizar render pudimos hacer const recipeView = new recipeView(model.state.recipe);
   } catch (err) {
@@ -51,7 +54,7 @@ const controlSearchResults = async function () {
     // if (!query) return; // Si coloco esto no me deja ir al render con el array.length de 0 y por lo tanto no me muestra el error en resultsView
 
     // 2) Load search results
-    await model.loadSerachResults(query);
+    await model.loadSearchResults(query);
 
     // 3) Render results
     // resultsView.render(model.state.search.results); Todos los resultados que se obtiviron de la query
@@ -95,8 +98,14 @@ const controlAddBookmark = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+// La función para cuando se cargue la pagina renderize los elementos (AUN NO CREADOS EN EL DOM) de bookmarks provenientes del localStorage.
+const controlBookmarks = function () {
+  bookmarksView.render(model.state.bookmarks);
+};
+
 const init = function () {
   // Publisher subscriber pattern
+  bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);

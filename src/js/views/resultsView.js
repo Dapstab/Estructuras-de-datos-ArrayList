@@ -31,9 +31,25 @@ class ResultsView extends View {
   // }
 
   _generateMarkup() {
-    return this._data
-      .map((result) => previewView.render(result, false))
-      .join("");
+    // return this._data
+    //   .map((result) => previewView.render(result, false))
+    //   .join("");
+
+    const markup = this._data.map((result) =>
+      previewView.render(result, false)
+    );
+
+    let markupStr = "";
+    let currentNode = markup.head;
+    let count = 0;
+
+    while (count < markup.length) {
+      markupStr += currentNode.value;
+      currentNode = currentNode.next;
+      count++;
+    }
+
+    return markupStr;
   }
 }
 

@@ -12,10 +12,31 @@ class BookmarksView extends View {
     "Ningun receta guardada. Encuentra una deliciosa receta y guardala!";
   _message = "";
 
+  // Este eveent listener es para que coloque los bookmarks provenientes del localStorage una vez se cargue la página.
+  addHandlerRender(handler) {
+    window.addEventListener("load", handler);
+  }
+
   _generateMarkup() {
-    return this._data
-      .map((bookmark) => previewView.render(bookmark, false))
-      .join("");
+    // return this._data
+    //   .map((bookmark) => previewView.render(bookmark, false))
+    //   .join("");
+
+    const markup = this._data.map((bookmark) =>
+      previewView.render(bookmark, false)
+    );
+
+    let markupStr = "";
+    let currentNode = markup.head;
+    let count = 0;
+
+    while (count < markup.length) {
+      markupStr += currentNode.value;
+      currentNode = currentNode.next;
+      count++;
+    }
+
+    return markupStr;
   }
 }
 
