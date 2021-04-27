@@ -123,7 +123,6 @@ export const removeBookmark = function (id) {
   const index = state.bookmarks.findIndex((el) => el.id === id);
   // state.bookmarks.splice(index, 1);
   state.bookmarks.remove(index);
-
   if (id === state.recipe.id) state.recipe.bookmarked = false;
   persistBookmarks();
 };
@@ -133,10 +132,8 @@ const init = function () {
   // console.log(storage); Deja de ser una singlyLinkedList para pasar a ser un objeto, luego necesitamos nuevamente llenar a bookmarks con una linkedlist, entonces:
   if (storage) {
     let count = 0;
-    let currentNode = storage.head;
-    while (count < storage.length) {
-      state.bookmarks.pushBack(currentNode.value);
-      currentNode = currentNode.next;
+    while (count < storage.size) {
+      state.bookmarks.pushBack(storage.list[count]); // No podemos simplemente igualar porque debemos incrementar el size
       count++;
     }
   }
@@ -147,4 +144,4 @@ const clearBookmarks = function () {
   // Function for development
   localStorage.clear("bookmarks");
 };
-// clearBookmarks();
+//clearBookmarks();
