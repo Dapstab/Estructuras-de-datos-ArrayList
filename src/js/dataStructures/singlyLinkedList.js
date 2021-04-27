@@ -96,21 +96,6 @@ class SinglyLinkedList {
     return newLinkedList;
   }
 
-  verify(value, node) {
-    let currentNode = this.head; // this es bookmarks
-    if (this.length !== 0) {
-      return false;
-    } else {
-      while (currentNode !== this.tail) {
-        if (currentNode.value.id === value) {
-          return true;
-        }
-        currentNode = currentNode.next;
-      }
-    }
-    return false;
-  }
-
   removeBeggining() {
     try {
       if (!this.length) throw new Error("The list is empty");

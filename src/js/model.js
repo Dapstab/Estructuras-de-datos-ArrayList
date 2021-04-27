@@ -1,10 +1,12 @@
 import { API_URL, RES_PER_PAGE } from "./config.js";
 import { getJSON } from "./helper.js";
-import {
-  recipesLl,
-  bookmarks,
-  results,
-} from "./dataStructures/singlyLinkedList.js";
+// import {
+//   recipesLl,
+//   bookmarks,
+//   results,
+// } from "./dataStructures/singlyLinkedList.js";
+
+import { ArrayList, recipesAl, results } from "./dataStructures/arrayList.js";
 
 export const state = {
   recipe: {},
@@ -14,14 +16,14 @@ export const state = {
     page: 1,
     resultsPerPage: RES_PER_PAGE,
   },
-  bookmarks: bookmarks, 
+  bookmarks: new ArrayList(0),
 };
 
 export const loadRecipe = async function (id) {
   // Esta función no va a retornar nada lo unico que va a hacer es cambiar el state oobject que creamos arriba, y ese es el que exportamos a los demas files.
   // 1) Loading recipe form the API.
   try {
-    state.recipe = recipesLl.find(id).value;
+    state.recipe = recipesAl.find(id);
     // console.log(state.recipe);
     // const data = await getJSON(`${API_URL}/${id}`);
     // const { recipe } = data.data;
@@ -61,7 +63,7 @@ export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
     // const data = await getJSON(`${API_URL}?search=${query}`);
-    state.search.results = recipesLl.findAll(query).map((rec) => {
+    state.search.results = recipesAl.findAll(query).map((rec) => {
       return {
         id: rec.id,
         title: rec.title,

@@ -5,7 +5,7 @@ class Stack {
   }
 
   push(element) {
-    this.stack[this.count] = element; 
+    this.stack[this.count] = element;
     this.count++;
     return this.stack;
   }
@@ -29,5 +29,3 @@ class Stack {
 }
 
 const stack = new stack();
-
-console.log(stack.size());

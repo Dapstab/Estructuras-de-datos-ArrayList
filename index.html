@@ -8,30 +8,36 @@
       href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sarina&display=swap"
+      rel="stylesheet"
+    />
     <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="src/sass/main.scss" />
     <script defer src="src/js/controller.js"></script>
-    <!-- <script defer src="src/js/dataStructures/singlyLinkedList.js"></script> -->
+    <!-- <script defer src="src/js/dataStructures/arrayList.js"></script> -->
 
-    <title>Datafood // Search over 1,000,000 recipes</title>
+    <title>DataFood // Busca más de 20000 recetas!!</title>
   </head>
 
   <body>
     <div class="container">
       <header class="header">
-        <img src="src/img/logo.png" alt="Logo" class="header__logo" />
+        <!-- <img src="src/img/logo.png" alt="Logo" class="header__logo" /> -->
+        <p class="header__logo">DataFood</p>
         <form class="search">
           <input
             type="text"
             class="search__field"
-            placeholder="Search over 1,000,000 recipes..."
+            placeholder="Busca más de 20000 recetas..."
           />
           <button class="btn search__btn">
             <svg class="search__icon">
               <use href="src/img/icons.svg#icon-search"></use>
             </svg>
-            <span>Search</span>
+            <span>Buscar</span>
           </button>
         </form>
 
@@ -42,7 +48,7 @@
                 <svg class="nav__icon">
                   <use href="src/img/icons.svg#icon-edit"></use>
                 </svg>
-                <span>Add recipe</span>
+                <span>Agregar receta</span>
               </button>
             </li>
             <li class="nav__item">
@@ -50,7 +56,7 @@
                 <svg class="nav__icon">
                   <use href="src/img/icons.svg#icon-bookmark"></use>
                 </svg>
-                <span>Bookmarks</span>
+                <span>Favoritas</span>
               </button>
               <div class="bookmarks">
                 <ul class="bookmarks__list">
@@ -61,7 +67,8 @@
                       </svg>
                     </div>
                     <p>
-                      No bookmarks yet. Find a nice recipe and bookmark it :)
+                      No tiene recetas favoritas. ¡Busca una receta que te
+                      encante y guardala!
                     </p>
                   </div>
 
@@ -143,7 +150,7 @@
               <use href="src/img/icons.svg#icon-smile"></use>
             </svg>
           </div>
-          <p>Start by searching for a recipe or an ingredient. Have fun!</p>
+          <p>Empiza buscando la comida que te guste. Que lo disfrutes!</p>
         </div>
 
         <!-- <div class="spinner">

@@ -34,22 +34,12 @@ class ResultsView extends View {
     // return this._data
     //   .map((result) => previewView.render(result, false))
     //   .join("");
-
+    // console.log(this._data, "DATA EN RESULTSVIEW");
     const markup = this._data.map((result) =>
       previewView.render(result, false)
     );
 
-    let markupStr = "";
-    let currentNode = markup.head;
-    let count = 0;
-
-    while (count < markup.length) {
-      markupStr += currentNode.value;
-      currentNode = currentNode.next;
-      count++;
-    }
-
-    return markupStr;
+    return markup;
   }
 }
 

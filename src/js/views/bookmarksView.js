@@ -26,17 +26,7 @@ class BookmarksView extends View {
       previewView.render(bookmark, false)
     );
 
-    let markupStr = "";
-    let currentNode = markup.head;
-    let count = 0;
-
-    while (count < markup.length) {
-      markupStr += currentNode.value;
-      currentNode = currentNode.next;
-      count++;
-    }
-
-    return markupStr;
+    return markup;
   }
 }
 

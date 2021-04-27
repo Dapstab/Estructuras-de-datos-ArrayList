@@ -1,4 +1,4 @@
-import recipes from "../data.js";
+import { recipes } from "../data";
 
 export class ArrayList {
   constructor(capacity) {
@@ -41,9 +41,9 @@ export class ArrayList {
     }
   }
 
-  push(value) {
+  pushBack(value) {
     try {
-      if (this.isFull()) throw new Error("The list is full");
+      if (this.isFull()) this.capacity++;
       this.list[this.size] = value;
       this.size++;
     } catch (err) {
@@ -71,9 +71,10 @@ export class ArrayList {
       if (this.isEmpty()) throw new Error("List is empty");
       let count = 0;
       while (count < this.size) {
-        if (this.list[count] === value) {
+        if (this.list[count].id === value) {
           return this.list[count];
-        } else count++;
+        }
+        count++;
       }
       console.log("There is no value in the list");
       return;
@@ -91,7 +92,7 @@ export class ArrayList {
       if (end > this.size) end = this.size;
       const newArrayList = new ArrayList(end - start);
       for (let i = start; i < end; i++) {
-        newArrayList.push(this.list[i]);
+        newArrayList.pushBack(this.list[i]);
       }
       return newArrayList.list;
     } catch (err) {
@@ -102,10 +103,9 @@ export class ArrayList {
   map(handler) {
     const newArrayList = new ArrayList(this.size);
     for (let i = 0; i < this.size; i++) {
-      newArrayList.push(handler(this.list[i]));
+      newArrayList.pushBack(handler(this.list[i]));
     }
-    console.log(newArrayList);
-    return newArrayList;
+    return newArrayList.list;
   }
 
   some(condition) {
@@ -128,18 +128,50 @@ export class ArrayList {
     }
     return -1;
   }
+
+  findAll(value) {
+    let newArrayList = new ArrayList(0);
+    let count = 0;
+    while (count < this.size) {
+      if (this.list[count].title === value) {
+        newArrayList.capacity++;
+        newArrayList.pushBack(this.list[count]);
+      }
+      count++;
+    }
+    return newArrayList.list;
+  }
 }
 
 // PROBANDO LAS ARRAYLISTS
-// const list = new ArrayList(6);
-// list.push(1);
-// list.push(2);
-// list.push(3);
-// list.push(4);
-// list.push(5);
-// list.push(6);
-// console.log(list.some((el) => el === 7));
-// list.map((e) => e * 2);
+
+export const recipesAl = new ArrayList(0);
+recipes.forEach((rec) => recipesAl.pushBack(rec));
+
+export const results = new ArrayList(0);
+
+// const list = new ArrayList(10);
+// list.pushBack(1);
+// list.pushBack(2);
+// list.pushBack(3);
+// list.pushBack(4);
+// list.pushBack(5);
+// list.pushBack(6);
+// list.pushBack(6);
+// list.pushBack(6);
+// list.pushBack(6);
+// list.pushBack(6);
+// list.pushBack(6);
+// console.log(list.size); 6
+// list.pushBack(7); The list is full
+// console.log(list.some((el) => el === 6)); true
+// console.log(list.map((e) => e * 2)); // [2, 4, 6, 8, 10, 12]
+// console.log(list.slice(0, 2));
+// console.log(list.findIndex((el) => el === 6)); // 5
+// console.log(list.remove(0)); [2, 3, 4, 5, 6, 6]
+// console.log(list.size); 5
+// console.log(list.find(5)); // 5
+// console.log(list.findAll(6)); // [6, 6, 6, 6, 6]
 
 // const arr = [1, 2, 3, 4, 5, 6];
 // console.log(arr.slice(0, 2));
